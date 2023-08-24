@@ -4,6 +4,6 @@ import { FlashCardController } from './flash-card.controller';
 
 @Module({
   providers: [FlashCardService],
-  controllers: [FlashCardController]
+  controllers: [FlashCardController],
 })
 export class FlashCardModule {}
