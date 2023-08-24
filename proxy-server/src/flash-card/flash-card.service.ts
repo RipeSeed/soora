@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { FlashCardDto } from './dto';
 
 @Injectable()
 export class FlashCardService {
@@ -11,6 +12,13 @@ export class FlashCardService {
     return await this.flashCardClient.send(
       { cmd: 'get-flashcards' },
       { email },
+    );
+  }
+
+  async create(email: string, dto: FlashCardDto) {
+    return await this.flashCardClient.send(
+      { cmd: 'create-flashcard' },
+      { email, dto },
     );
   }
 }

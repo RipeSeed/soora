@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { FlashCardService } from './flash-card.service';
 import { MessagePattern } from '@nestjs/microservices';
+import { FlashCardDto } from './dto/flashcard.dto';
 
 @Controller('flash-card')
 export class FlashCardController {
@@ -9,5 +10,10 @@ export class FlashCardController {
   @MessagePattern({ cmd: 'get-flashcards' })
   handleGetFlashcards(email: { [key: string]: string }) {
     return this.flashCardService.getFlashcards(email);
+  }
+
+  @MessagePattern({ cmd: 'create-flashcard' })
+  handleCreateFlashcard(data: { email: string; dto: FlashCardDto }) {
+    return this.flashCardService.createFlashcard(data);
   }
 }
