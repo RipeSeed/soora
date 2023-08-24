@@ -1,10 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { FlashCardService } from './flash-card.service';
 import { GetCurrentUser } from 'src/common/decorators';
@@ -27,5 +31,24 @@ export class FlashCardController {
     @Body() dto: FlashCardDto,
   ) {
     return this.flashCardService.create(email, dto);
+  }
+
+  @Delete()
+  deleteFlashCard(
+    @GetCurrentUser('email') email: string,
+    // @Param('id') id: string,
+    @Query() query: any,
+  ) {
+    console.log(query);
+    return this.flashCardService.deleteFlashCard(email, query.id);
+  }
+
+  @Patch()
+  updateFlashCard(
+    @GetCurrentUser('email') email: string,
+    @Query() query: any,
+    @Body() dto: FlashCardDto,
+  ) {
+    return this.flashCardService.update(email, query.id, dto);
   }
 }

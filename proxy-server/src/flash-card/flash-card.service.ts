@@ -21,4 +21,18 @@ export class FlashCardService {
       { email, dto },
     );
   }
+
+  deleteFlashCard(email: string, id: string) {
+    return this.flashCardClient.send(
+      { cmd: 'delete-flashcard' },
+      { email, id },
+    );
+  }
+
+  update(email: string, id: string, dto: FlashCardDto) {
+    return this.flashCardClient.send(
+      { cmd: 'update-flashcard' },
+      { email, id, dto },
+    );
+  }
 }

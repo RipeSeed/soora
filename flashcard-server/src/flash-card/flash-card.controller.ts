@@ -16,4 +16,18 @@ export class FlashCardController {
   handleCreateFlashcard(data: { email: string; dto: FlashCardDto }) {
     return this.flashCardService.createFlashcard(data);
   }
+
+  @MessagePattern({ cmd: 'delete-flashcard' })
+  handleDeleteFlashcard(data: { email: string; id: string }) {
+    return this.flashCardService.deleteFlashcard(data);
+  }
+
+  @MessagePattern({ cmd: 'update-flashcard' })
+  handleUpdateFlashcard(data: {
+    email: string;
+    id: string;
+    dto: FlashCardDto;
+  }) {
+    return this.flashCardService.updateFlashcard(data);
+  }
 }

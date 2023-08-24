@@ -32,4 +32,33 @@ export class FlashCardService {
 
     return flashCard.id;
   }
+
+  async deleteFlashcard(data: { email: string; id: string }) {
+    await this.prisma.flashCard.delete({
+      where: {
+        id: data.id,
+        createdBy: data.email,
+      },
+    });
+
+    return 'Success';
+  }
+
+  async updateFlashcard(data: {
+    email: string;
+    id: string;
+    dto: FlashCardDto;
+  }) {
+    await this.prisma.flashCard.update({
+      where: {
+        id: data.id,
+        createdBy: data.email,
+      },
+      data: {
+        ...data.dto,
+      },
+    });
+
+    return 'Success';
+  }
 }
