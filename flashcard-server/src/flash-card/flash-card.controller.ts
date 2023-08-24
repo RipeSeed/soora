@@ -30,4 +30,14 @@ export class FlashCardController {
   }) {
     return this.flashCardService.updateFlashcard(data);
   }
+
+  @MessagePattern({ cmd: 'get-single-flashcard' })
+  handleGetSingleFlashCards(data: { email: string; id: string }) {
+    return this.flashCardService.getSingleFlashCards(data);
+  }
+
+  @MessagePattern({ cmd: 'get-user-flashcards' })
+  handleGetUserFlashCards(data: { email: string }) {
+    return this.flashCardService.getUserFlashCards(data);
+  }
 }

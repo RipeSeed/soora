@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Param,
   Patch,
   Post,
   Query,
@@ -50,5 +49,21 @@ export class FlashCardController {
     @Body() dto: FlashCardDto,
   ) {
     return this.flashCardService.update(email, query.id, dto);
+  }
+
+  @Get('single')
+  @HttpCode(HttpStatus.OK)
+  getFlashCard(@GetCurrentUser('email') email: string, @Query() query: any) {
+    return this.flashCardService.getFlashCard(email, query.id);
+  }
+
+  @Get('generate-link')
+  generateShareLink(@GetCurrentUser('email') email: string) {
+    return this.flashCardService.generateShareLink(email);
+  }
+
+  @Get('get-user-flashcards')
+  getFlashCardsForUser(@Query() param: any) {
+    return this.flashCardService.getFlashCardsForUser(param.email);
   }
 }

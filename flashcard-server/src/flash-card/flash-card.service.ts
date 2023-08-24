@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FlashCardDto } from './dto/flashcard.dto';
 
@@ -60,5 +60,34 @@ export class FlashCardService {
     });
 
     return 'Success';
+  }
+
+  async getSingleFlashCards(data: { email: string; id: string }) {
+    const card = await this.prisma.flashCard.findUnique({
+      where: {
+        id: data.id,
+        createdBy: data.email,
+      },
+    });
+
+    if (!card) {
+      throw new Error('No such card found');
+    }
+
+    return card;
+  }
+
+  async getUserFlashCards(data: { email: string }) {
+    const cards = await this.prisma.flashCard.findMany({
+      where: {
+        createdBy: data.email,
+      },
+    });
+
+    if (!cards) {
+      throw new NotFoundException('Not Found');
+    }
+
+    return cards;
   }
 }

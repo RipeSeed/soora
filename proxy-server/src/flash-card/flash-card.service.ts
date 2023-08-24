@@ -35,4 +35,19 @@ export class FlashCardService {
       { email, id, dto },
     );
   }
+
+  getFlashCard(email: string, id: any) {
+    return this.flashCardClient.send(
+      { cmd: 'get-single-flashcard' },
+      { email, id },
+    );
+  }
+
+  generateShareLink(email: string) {
+    return `flash-card/get-user-flashcards?email=${email}`;
+  }
+
+  getFlashCardsForUser(email: any) {
+    return this.flashCardClient.send({ cmd: 'get-user-flashcards' }, { email });
+  }
 }
